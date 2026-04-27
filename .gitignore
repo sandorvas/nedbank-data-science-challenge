@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+__MACOSX
+
+# data files
+*.csv
+*.parquet
+*.zip
+*.dmg
+
+# outputs
+submission.csv
+
+# python
+__pycache__/
+*.pyc
