@@ -1,59 +1,59 @@
-🧠 Nedbank Data Science Challenge
+Nedbank Data Challenge
 
-📌 Overview
+Solution Summary
 
-This repository contains my solution for the Nedbank Data Science Challenge.
+End-to-end machine learning pipeline using RandomForest regression on customer demographic data with log-transformed predictions to align with evaluation metric behavior.
 
-The objective is to build a predictive model using customer, transaction, and financial data to generate accurate predictions for the provided test dataset.
+Architecture Thinking
 
-⸻
+This solution follows a simple but robust data pipeline design:
 
-⚙️ Approach
+1. Data Ingestion Layer
+    * Load training, test, and demographic datasets
+    * Ensure consistent schema alignment
+2. Feature Engineering Layer
+    * Transform BirthDate → Age (domain-relevant feature)
+    * Apply one-hot encoding for categorical variables
+    * Align train/test feature space to guarantee consistency
+3. Modeling Layer
+    * RandomForest chosen for stability and low overfitting risk
+    * Avoided complex transformations to preserve prediction reliability
+4. Prediction Layer
+    * Raw predictions converted using log1p transformation
+    * Ensures compatibility with competition evaluation behavior (RMSLE)
+5. Output Layer
+    * Submission strictly aligned with SampleSubmission format
+    * Preserves row order and ID integrity
 
-The solution follows a structured data science workflow:
+Key Engineering Decisions
 
-1. Data Integration
-    * Merged core datasets using UniqueID
-    * Combined demographic and financial feature sets
-2. Feature Engineering
-    * Used pre-engineered financial and demographic features
-    * Ensured alignment between training and test datasets
-3. Modeling
-    * Trained a classification model using scikit-learn
-    * Focused on simplicity, stability, and reproducibility
-4. Evaluation
-    * Generated predictions in the required submission format
-    * Verified output against competition requirements
+* Prioritized pipeline correctness over model complexity
+* Avoided overfitting by keeping model simple and stable
+* Ensured strict alignment between features and submission format
+* Identified and resolved multiple failure modes:
+    * datatype inconsistencies
+    * feature misalignment
+    * transformation errors
+    * submission structure issues
 
-⸻
+Final Score
 
-📂 Repository Structure
+RMSLE: ~1.075
 
-* StarterNotebook.ipynb — main notebook with full workflow
-* evaluate.py — evaluation script
-* .gitignore — excludes data and artifacts
+Run
 
-⸻
+python final_model.py
 
-▶️ How to Run
+Notes for Interview / Discussion
 
-1. Install dependencies:
+* Demonstrates ability to debug real-world ML pipelines under uncertainty
+* Shows understanding of evaluation metrics and their practical implications
+* Highlights importance of data integrity and transformation consistency
+* Emphasizes engineering discipline over blind model optimization
 
-pip install pandas scikit-learn
+Future Improvements
 
-2. Run the notebook:
-
-jupyter notebook StarterNotebook.ipynb
-
-⸻
-
-🧩 Notes
-
-* Data files are excluded from the repository per competition rules
-* The solution is fully reproducible given the original datasets
-
-⸻
-
-🚀 Author
-
-Sandor Vas
+* Replace RandomForest with CatBoost for better categorical handling
+* Introduce cross-validation for more reliable model evaluation
+* Explore advanced feature encoding techniques (target/frequency encoding)
+* Incorporate financial features once properly validated
